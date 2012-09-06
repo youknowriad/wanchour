@@ -1,0 +1,35 @@
+{% extends "RizewayWanchourBundle:Distribution:base.html.twig" %}
+
+{% block submenu %}
+    {% include "RizewayWanchourBundle:Distribution:menu.html.twig" with {'current': 'home'} %}
+{% endblock %}
+    
+{% block body %}
+    
+    {% include "RizewayWanchourBundle:Utils:flash_message.html.twig" %}
+
+    <div class="bloc">
+        
+        <div class="bloc-header"> 
+             <h2 class="bloc-title">Distributions</h2>
+             <div class="bloc-line"></div>
+        </div>
+
+        <div class="bloc-content">
+            <table class="table-striped table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in distributions|keys %}
+                        {% include "RizewayWanchourBundle:Distribution:resume.html.twig" with {'distribution' : distributions[key], 'class' : cycle(['odd', 'even'], key) } %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

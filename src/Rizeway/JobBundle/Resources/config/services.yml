@@ -1,0 +1,7 @@
+parameters:
+#    rizeway_job.example.class: Rizeway\JobBundle\Example
+
+services:
+#    rizeway_job.example:
+#        class: %rizeway_job.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

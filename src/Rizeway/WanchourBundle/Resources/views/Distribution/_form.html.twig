@@ -1,0 +1,72 @@
+<form action="{{ path(route, route_options is defined ? route_options : {} ) }}" {{ form_enctype(form) }} method="post">
+    <div>{{ form_errors(form) }}</div>
+
+    <fieldset>
+        <div class="control-group form-inline {{ form_errors(form.name) ? 'error' : '' }}">
+          <label class="control-label">Name</label>
+          {{ form_widget(form.name, { 'attr': {'class': 'input-xlarge'}}) }}
+          <span class="help-inline">{{ form_errors(form.name) }}</span>
+        </div>  
+    </fieldset>
+
+    <fieldset>
+      <legend>Parameters</legend>
+
+      {% set prototype = '
+          <label for="distribution_parameters___name___key" class="required">Key</label>
+          <input type="text" id="distribution_parameters___name___key" name="distribution[parameters][__name__][key]" required="required" />
+
+          <label for="distribution_parameters___name___value" class="required">Value</label>
+          <input type="text" id="distribution_parameters___name___value" name="distribution[parameters][__name__][value]" required="required" />
+
+          <button class="close" data-dismiss="alert">×</button>
+        ' %}
+
+      <div id="parameter-fields-list" data-prototype="{{ prototype }}">
+        {% for parameterField in form.parameters %}
+          <div class="controls well form-inline {{ form_errors(parameterField) ? 'error' : '' }}">
+            {{ form_label(parameterField.key) }}
+            {{ form_widget(parameterField.key) }}
+
+            {{ form_label(parameterField.value) }}
+            {{ form_widget(parameterField.value) }}
+            <span class="help-inline">{{ form_errors(parameterField) }}</span>
+            <button class="close">×</button>
+          </div>   
+        {% endfor %}
+      </div>
+
+      <a href="#" id="add-another-parameter">Add another parameter</a>
+    </fieldset>
+
+    {{ form_row(form._token) }}
+
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Submit">&nbsp;<button type="reset" class="btn">Cancel</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    
+
+    jQuery(document).ready(function() {
+
+        var param_count = '{{ form.parameters | length }}';
+        var param_list = jQuery('#parameter-fields-list');
+
+        param_list.find('.close').click(function(e) {
+          jQuery(this).parents('.controls:first').remove();
+        });
+
+        jQuery('#add-another-parameter').click(function(e) {
+            e.preventDefault();
+            var newWidget = param_list.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, param_count);
+            param_count++;
+            var newLi = jQuery('<div class="controls well form-inline"></div>').html(newWidget);
+            newLi.appendTo(jQuery('#parameter-fields-list'));
+
+            return false;
+        });
+    })
+</script>

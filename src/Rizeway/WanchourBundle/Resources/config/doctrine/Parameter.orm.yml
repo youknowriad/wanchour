@@ -1,0 +1,20 @@
+Rizeway\WanchourBundle\Entity\Parameter:
+  type: entity
+  table: parameter
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    key:
+      type: string
+      lenght: 200
+      column: key_name
+    value:
+      type: string
+      lenght: 200
+  manyToOne:
+    distribution:
+      targetEntity: Distribution
+      inversedBy: parameters

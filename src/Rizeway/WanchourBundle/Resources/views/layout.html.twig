@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+   <head>
+       
+        <title>{% block title %}Wanchour : Deployment Manager{% endblock %}</title>
+        <meta name="description" content="Wanchour, Depoyment management based on Anchour.">
+        <meta name="author" content="Rizeway">
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
+
+        {% block stylesheets %}
+            <link rel="stylesheet"  type="text/css" href="{{ asset('bundles/rizewaywanchour/bootstrap/css/bootstrap.css') }}" />
+            <link rel="stylesheet/less" href="{{ asset('bundles/rizewaywanchour/less/wanchour.less') }}" />
+        {% endblock %}
+        
+        {% block js %}
+            <script src="{{ asset('bundles/rizewaywanchour/js/lib/less-1.3.0.min.js') }}"></script>
+            <script src="{{ asset('bundles/rizewaywanchour/js/lib/jquery-1.7.2.min.js') }}"></script>
+            <script src="{{ asset('bundles/rizewaywanchour/bootstrap/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/rizewaywanchour/js/RizewayLoader.js') }}"></script>
+            <script src="{{ asset('bundles/rizewaywanchour/js/RizewayPager.js') }}"></script>
+            <script src="{{ asset('bundles/rizewaywanchour/js/RizewayAjaxLink.js') }}"></script>
+        {% endblock %}
+        
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <meta charset="UTF-8" />
+
+   </head>
+   <body {% block bodyclass %}{% endblock %}>
+       <header>
+           <div class="center">
+                           
+               <a id="logo" href="{{ path('_welcome') }}">Wanchour</a>
+               {% block mainmenu %}{% endblock %}
+               
+           </div>
+       </header>
+           
+       <div id="container">
+           <div class="center">
+               {% block submenu %}{% endblock %}
+           </div>
+           <div class="center spacer-top">
+               {% block body %}{% endblock %}         
+           </div>
+       </div>
+       
+       <footer>
+           <div id="copyright">
+               <a href="http://rizeway.com"><img src="{{ asset('bundles/rizewaywanchour/images/rizeway.png')}}" /></a>
+               Wanchour © 2012 Tous droits réservés
+           </div>
+       </footer>
+           
+       {% include "RizewayWanchourBundle:Utils:loading.html.twig" %}
+   </body>
+</html>

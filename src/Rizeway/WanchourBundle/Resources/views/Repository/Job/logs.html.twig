@@ -1,0 +1,50 @@
+{% extends "RizewayWanchourBundle:Repository:base.html.twig" %}
+
+{% block submenu %}
+    {% include "RizewayWanchourBundle:Repository:menu.html.twig"  %}
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/rizewaywanchour/js/CommandLauncher.js') }}"></script>
+{% endblock %}
+    
+{% block body %}
+    
+    {% set log_classes = {
+        info: 'info',
+        error: 'important',
+        warning: 'warning'
+    } %}
+
+    <ul class="breadcrumb">
+      <li><a href="{{ path('repository_list') }}">Repositories</a> <span class="divider">/</span></li>
+      <li><a href="{{ path('repository_show', {'id': repository.id}) }}">Repository {{ repository.name }}</a> <span class="divider">/</span></li>
+      <li class="active"><a href="{{ path('repository_job_logs', {'id': repository.id, 'job_id': job.id}) }}">Job {{ job.id }}</a></li>
+
+    </ul>
+
+    <div class="bloc">
+        
+        <div class="bloc-header"> 
+             <h2 class="bloc-title">Job : {{ job.name }}<h2>
+             <div class="bloc-line"></div>
+        </div>
+        
+        <table id="jobs-list-table" class="table table-striped">
+          <thead>
+            <th>Priority</th>
+            <th>Message</th>
+          </thead>
+          <tbody>
+            {% for log in job.logs %}
+            <tr>
+                <td><span class="label label-{{ log_classes[log.priorityLabel] }}">{{ log.priorityLabel }}</span></td>
+                <td>{{ log.message }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+{% endblock %}

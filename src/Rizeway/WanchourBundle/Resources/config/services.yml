@@ -1,0 +1,2 @@
+parameters:
+    wanchour.anchour: %kernel.root_dir%/../anchour.phar

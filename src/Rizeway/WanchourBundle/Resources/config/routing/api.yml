@@ -1,0 +1,15 @@
+api_deploy:
+    pattern: /deploy/{repository_id}/{command_name}/{distribution_id}
+    defaults: { _controller: RizewayWanchourBundle:Api:deploy, distribution_id: null, _format: json }
+
+api_job:
+    pattern: /job/{job_id}
+    defaults: { _controller: RizewayWanchourBundle:Api:job, _format: json }
+
+repositories:
+    pattern: /repositories
+    defaults: { _controller: RizewayWanchourBundle:Api:repositories, _format: json }
+
+distributions:
+    pattern: /distributions
+    defaults: { _controller: RizewayWanchourBundle:Api:distributions, _format: json }

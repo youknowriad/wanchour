@@ -1,0 +1,19 @@
+distribution_index:
+    pattern: /
+    defaults: { _controller: RizewayWanchourBundle:Distribution:index }
+
+distribution_list:
+    pattern:  /list/
+    defaults: { _controller: RizewayWanchourBundle:Distribution:list }
+
+distribution_new:
+    pattern:  /new/
+    defaults: { _controller: RizewayWanchourBundle:Distribution:new }
+
+distribution_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: RizewayWanchourBundle:Distribution:edit }
+
+distribution_delete:
+    pattern:  /delete/{id}
+    defaults: { _controller: RizewayWanchourBundle:Distribution:delete }

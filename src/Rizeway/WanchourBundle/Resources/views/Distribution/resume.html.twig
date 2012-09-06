@@ -1,0 +1,7 @@
+<tr class="{{ class }}">
+    <td class="row-header">{{ distribution.name }}</td>
+    <td>
+        <a class="icon edit-icon show-tooltip" href="{{ path('distribution_edit', {'id': distribution.id}) }}" title="Edit this distribution">Edit the distribution {{ distribution.name }}</a>
+        <a onclick="return confirm('Are you sure you want to delete this distribution ?');" class="icon delete-icon show-tooltip" href="{{ path('distribution_delete', {'id': distribution.id}) }}" title="Delete the distribution {{ distribution.name }}">Delete the distribution {{ distribution.name }}</a>
+    </td>
+</tr>

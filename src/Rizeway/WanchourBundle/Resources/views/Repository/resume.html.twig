@@ -1,0 +1,11 @@
+<tr class="{{ class }}">
+    <td class="row-header">{{ repository.name }}</td>
+    <td>{{ repository.url }}</td>
+    <td>{{ repository.commands|join(', ') }}</td>
+    <td>
+        <a class="icon file-icon show-tooltip" href="{{ path('repository_show', {'id': repository.id}) }}" title="Show the repository's anchour commands">Show the repository's details</a>
+        <a class="icon edit-icon show-tooltip" href="{{ path('repository_edit', {'id': repository.id}) }}" title="Edit this repository">Edit the repository {{ repository.name }}</a>
+        <a class="icon refresh-icon show-tooltip" href="{{ path('repository_update_commands', {'id': repository.id}) }}" title="Update the repository's anchour commands">Update the repository's anchour commands</a>
+        <a onclick="return confirm('Are you sure you want to delete this repository ?');" class="icon delete-icon show-tooltip" href="{{ path('repository_delete', {'id': repository.id}) }}" title="Delete the repository {{ repository.name }}">Delete the repository {{ repository.name }}</a>
+    </td>
+</tr>

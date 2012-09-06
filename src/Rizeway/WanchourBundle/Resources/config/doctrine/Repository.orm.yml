@@ -1,0 +1,19 @@
+Rizeway\WanchourBundle\Entity\Repository:
+  type: entity
+  table: repository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      lenght: 50
+    url:
+      type: string
+      lenght: 200
+    deploying:
+      type: boolean
+    commands:
+      type: array

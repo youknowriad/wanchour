@@ -1,0 +1,21 @@
+Rizeway\JobBundle\Entity\JobLog:
+    type: entity
+    table: null
+    repositoryClass: Rizeway\JobBundle\Entity\JobLogRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        message:
+            type: text
+        priority:
+            type: smallint
+        created_at:
+            type: datetime
+    manyToOne:
+        job:
+            targetEntity: Job
+            inversedBy: logs
+    lifecycleCallbacks: {  }

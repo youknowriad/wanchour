@@ -1,0 +1,6 @@
+_welcome:
+    pattern:  /
+    defaults: { _controller: RizewayWanchourBundle:Default:index }
+
+RizewayWanchourBundle:
+    resource: "@RizewayWanchourBundle/Resources/config/routing.yml"

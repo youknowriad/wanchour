@@ -1,0 +1,33 @@
+{% set status_classes = {
+    success: 'success',
+    error: 'important',
+    running: 'info',
+    new: 'new'
+} %}
+
+{% for job in jobs %}
+<tr>
+    <td>{{ job.name }}</td>
+    <td><span class="label label-{{ status_classes[job.statusLabel] }}">{{ job.statusLabel }}</span></td>
+    <td>
+        <a class="icon file-icon show-tooltip" href="{{ path('repository_job_logs', {'id': repository.id, 'job_id': job.id}) }}">Show logs</a>
+    </td>
+</tr>
+{% endfor %}
+
+{% if not jobs|length and page == 1 %}
+<tr>
+    <td colspan="3">No jobs found</td>
+</tr>
+{% endif %}
+{% if show_pager %}
+    <tr>
+        <td colspan="4">
+            <a class="rizeway-pager" href="{{ path('repository_jobs', {id: repository.id, page: page + 1}) }}">More jobs</a>
+            
+            <script>
+                var pager = new RizewayPager('#jobs-list-table');
+            </script>
+        </td>
+    </tr>
+{% endif %}

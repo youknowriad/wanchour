@@ -1,0 +1,26 @@
+{% extends "RizewayWanchourBundle:Repository:base.html.twig" %}
+
+{% block submenu %}
+    {% include "RizewayWanchourBundle:Repository:menu.html.twig" with {'current': 'new'} %}
+{% endblock %}
+
+{% block body %}
+    
+    <ul class="breadcrumb">
+      <li><a href="{{ path('repository_list') }}">Repositories</a> <span class="divider">/</span></li>
+      <li class="active">New</li>
+    </ul>
+
+    <div class="bloc">
+        
+        <div class="bloc-header"> 
+             <h2 class="bloc-title">New repository</h2>
+             <div class="bloc-line"></div>
+        </div>
+
+        <div class="bloc-content">
+            {% include "RizewayWanchourBundle:Repository:_form.html.twig" with {'route': 'repository_new'} %}
+        </div>
+    </div>
+
+{% endblock %}

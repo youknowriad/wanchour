@@ -1,0 +1,71 @@
+{% extends "RizewayWanchourBundle:Repository:base.html.twig" %}
+
+{% block submenu %}
+    {% include "RizewayWanchourBundle:Repository:menu.html.twig"  %}
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/rizewaywanchour/js/CommandLauncher.js') }}"></script>
+{% endblock %}
+    
+{% block body %}
+    
+    <ul class="breadcrumb">
+      <li><a href="{{ path('repository_list') }}">Repositories</a> <span class="divider">/</span></li>
+      <li class="active"><a href="{{ path('repository_show', {'id': repository.id}) }}">Repository {{ repository.name }}</a></li>
+    </ul>
+
+    {% include "RizewayWanchourBundle:Utils:flash_message.html.twig" %}
+
+    <div class="bloc">
+        
+        <div class="bloc-header"> 
+             <h2 class="bloc-title">Repository : {{ repository.name }}<h2>
+             <div class="bloc-line"></div>
+        </div>
+
+        <div class="bloc-content">
+          <div class="well">
+            <table class="table no-border">
+                <tbody>
+                    <tr>
+                        <td class="row-header">Repository Name</td>
+                        <td>{{ repository.name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="row-header">Repository URL</td>
+                        <td>{{ repository.url }}</td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+
+          <h2>Launch commands</h2>
+          <p id="ditribution_select"> Select the distribution to use : {{ form_widget(form.distribution) }}</p>
+          <ul id="repository_commands">
+          {% for command in repository.commands %}
+            <li>Launch the command <a href="{{ path('repository_launch_command', {'id': repository.id, 'command_name': command}) }}">{{ command }}</a></li>
+          {% endfor %}
+          </ul>
+          <h2 class="spacer-top">Job History</h2>
+          <a class="array-header-link" href="{{ path('repository_jobs', {'id': repository.id }) }}">Refresh jobs</a>
+          <table id="jobs-list-table" class="table table-striped">
+            <thead>
+              <th>Name</th>
+              <th>Status</th>
+              <th></th>
+            </thead>
+            <tbody>
+              {% render 'RizewayWanchourBundle:Repository:Jobs' with {'id': repository.id} %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+
+    <script>
+      var launcher = new CommandLauncher($('#ditribution_select select'), $('#repository_commands a'));
+      var link = new RizewayAjaxLink($('.array-header-link'), $('#jobs-list-table tbody'));
+    </script>
+
+{% endblock %}

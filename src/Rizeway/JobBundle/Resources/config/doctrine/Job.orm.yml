@@ -1,0 +1,35 @@
+Rizeway\JobBundle\Entity\Job:
+    type: entity
+    table: null
+    repositoryClass: Rizeway\JobBundle\Entity\JobRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        type:
+            type: string
+            length: 255
+        status:
+            type: smallint
+        description:
+            type: string
+            length: 255
+            nullable: true
+        classname:
+            type: string
+            length: 255
+        options:
+            type: text
+        created_at:
+            type: datetime
+    oneToMany:
+        logs:
+            targetEntity: JobLog
+            mappedBy: job
+            cascade: [persist, remove]
+    lifecycleCallbacks: {  }

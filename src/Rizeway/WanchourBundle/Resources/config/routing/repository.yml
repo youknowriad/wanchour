@@ -1,0 +1,40 @@
+repository_index:
+    pattern: /
+    defaults: { _controller: RizewayWanchourBundle:Repository:index }
+
+repository_list:
+    pattern:  /list/
+    defaults: { _controller: RizewayWanchourBundle:Repository:list }
+
+repository_new:
+    pattern:  /new/
+    defaults: { _controller: RizewayWanchourBundle:Repository:new }
+
+repository_show:
+    pattern:  /show/{id}
+    defaults: { _controller: RizewayWanchourBundle:Repository:show }
+
+repository_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: RizewayWanchourBundle:Repository:edit }
+
+repository_delete:
+    pattern:  /delete/{id}
+    defaults: { _controller: RizewayWanchourBundle:Repository:delete }
+
+repository_update_commands:
+    pattern:  /update_commands/{id}
+    defaults: { _controller: RizewayWanchourBundle:Repository:updateCommands }
+
+repository_launch_command:
+    pattern:  /launch_command/{id}/{command_name}
+    defaults: { _controller: RizewayWanchourBundle:Repository:launchCommand }
+
+repository_jobs:
+    pattern:  /jobs/{id}/{page}
+    defaults: { _controller: RizewayWanchourBundle:Repository:jobs, page: 1 }
+
+repository_job_logs:
+    pattern:  /job_logs/{id}/{job_id}
+    defaults: { _controller: RizewayWanchourBundle:Repository:jobLogs }
+

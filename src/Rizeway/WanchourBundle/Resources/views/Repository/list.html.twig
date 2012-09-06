@@ -1,0 +1,37 @@
+{% extends "RizewayWanchourBundle:Repository:base.html.twig" %}
+
+{% block submenu %}
+    {% include "RizewayWanchourBundle:Repository:menu.html.twig" with {'current': 'home'} %}
+{% endblock %}
+    
+{% block body %}
+    
+    {% include "RizewayWanchourBundle:Utils:flash_message.html.twig" %}
+
+    <div class="bloc">
+        
+        <div class="bloc-header"> 
+             <h2 class="bloc-title">Repositories</h2>
+             <div class="bloc-line"></div>
+        </div>
+
+        <div class="bloc-content">
+            <table class="table-striped table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Url</th>
+                        <th>Anchour Commands</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in repositories|keys %}
+                        {% include "RizewayWanchourBundle:Repository:resume.html.twig" with {'repository' : repositories[key], 'class' : cycle(['odd', 'even'], key) } %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

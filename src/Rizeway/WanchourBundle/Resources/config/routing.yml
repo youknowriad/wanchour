@@ -1,0 +1,11 @@
+repository:
+    resource: "@RizewayWanchourBundle/Resources/config/routing/repository.yml"
+    prefix:   /repo
+
+distribution:
+    resource: "@RizewayWanchourBundle/Resources/config/routing/distribution.yml"
+    prefix:   /distrib
+
+api:
+    resource: "@RizewayWanchourBundle/Resources/config/routing/api.yml"
+    prefix:   /api

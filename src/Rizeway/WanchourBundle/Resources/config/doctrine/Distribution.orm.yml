@@ -1,0 +1,17 @@
+Rizeway\WanchourBundle\Entity\Distribution:
+  type: entity
+  table: distribution
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      lenght: 100
+  oneToMany:
+    parameters:
+      targetEntity: Parameter
+      mappedBy: distribution
+      cascade: [persist, remove]

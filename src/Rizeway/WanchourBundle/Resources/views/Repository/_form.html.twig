@@ -1,0 +1,30 @@
+<form class="form-horizontal" action="{{ path(route, route_options is defined ? route_options : {} ) }}" {{ form_enctype(form) }} method="post">
+    <div>{{ form_errors(form) }}</div>
+
+    <fieldset>
+
+        <div class="control-group {{ form_errors(form.name) ? 'error' : '' }}">
+          <label class="control-label">Name</label>
+          <div class="controls">
+            {{ form_widget(form.name, { 'attr': {'class': 'input-xlarge'}}) }}
+            <span class="help-inline">{{ form_errors(form.name) }}</span>
+          </div>
+        </div>
+
+        <div class="control-group {{ form_errors(form.url) ? 'error' : '' }}">
+          <label class="control-label">Url</label>
+          <div class="controls">
+            {{ form_widget(form.url, { 'attr': {'class': 'input-xlarge'}}) }}
+            <span class="help-inline">{{ form_errors(form.url) }}</span>
+          </div>
+        </div>
+
+    </fieldset>
+
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Submit">&nbsp;<button type="reset" class="btn">Cancel</button>
+    </div>
+
+    {{ form_rest(form) }}
+
+</form>

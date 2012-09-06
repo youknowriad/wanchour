@@ -1,0 +1,4 @@
+<nav id="submenu">
+    <a {{ current is defined and current == 'home' ? 'class="active"' : '' }} href="{{ path('repository_list') }}">Repository list</a>
+    <a {{ current is defined and current == 'new' ? 'class="active"' : '' }} href="{{ path('repository_new') }}">New Repository</a>
+</div>
