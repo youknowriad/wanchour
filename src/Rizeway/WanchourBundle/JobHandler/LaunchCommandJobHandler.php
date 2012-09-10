@@ -6,7 +6,6 @@ use Rizeway\JobBundle\JobHandler\ContainerAwareJobHandler;
 use Rizeway\WanchourBundle\Entity\Distribution;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use GitElephant\Repository as GitRepo;
-use Symfony\Component\Process\Process;
 
 class LaunchCommandJobHandler extends ContainerAwareJobHandler
 {
@@ -43,16 +42,12 @@ class LaunchCommandJobHandler extends ContainerAwareJobHandler
         $repo->cloneFrom($repository->getUrl());
 
         $this->log('Launching the anchour command');
-        $process = new Process(sprintf('cd %s && %s %s %s',
+        exec(sprintf('cd %s && %s %s %s',
           $workspace.$dir,
           $anchour, 
           $this->getOption('command_name'),
           is_null($distribution) ? '' : '--config='.$config_file));
-        $process->setTimeout(10000);
-        $process->run();
-        if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
-        }
+        
 
         $this->log('Cleaning Temporary Files'); 
         exec('rm -rf '.$workspace.$dir);
