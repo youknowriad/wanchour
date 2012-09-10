@@ -1,5 +1,4 @@
 <?php
-
 namespace Rizeway\JobBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -10,9 +9,14 @@ use Rizeway\JobBundle\Entity\Job;
 use Rizeway\JobBundle\Logger\DoctrineLogger;
 use Rizeway\JobBundle\Logger\LoggerInterface;
 
+declare(ticks = 1);
 
 class DaemonCommand extends ContainerAwareCommand
 {
+    protected $running = false;
+    protected $job;
+    protected $logger;
+
     protected function configure()
     {
         $this
@@ -27,9 +31,15 @@ class DaemonCommand extends ContainerAwareCommand
         if (is_null($job)) {
             $output->writeln('No jobs in queue');  
         } else {
+            $this->logger = $logger = new DoctrineLogger($job, $em);
+            $this->job = $job;
+
+            pcntl_signal(SIGTERM, array($this, 'checkExit'));
+            pcntl_signal(SIGINT, array($this, 'checkExit'));
+
             $job->setStatus(Job::STATUS_RUNNING);
             $em->flush();
-            $logger = new DoctrineLogger($job, $em);
+            $this->running = true;
 
             try {
                 $classname = $job->getClassname();
@@ -49,7 +59,6 @@ class DaemonCommand extends ContainerAwareCommand
 
                 $job->setStatus(Job::STATUS_SUCCESS);
                 $em->flush();
-
             } catch (\Exception $e) {
                 $output->writeln(sprintf('Error in the job "%s" : %s',
                     $job->getName(),
@@ -60,6 +69,23 @@ class DaemonCommand extends ContainerAwareCommand
                 $job->setStatus(Job::STATUS_ERROR);
                 $em->flush();
             }
+
+            $this->running = false;
         }
+    }
+
+    public function checkExit()
+    {
+        if ($this->running)
+        {
+            $em = $this->getContainer()->get('doctrine')->getEntityManager();
+            if (!is_null($this->logger)) {
+                $this->logger->log('The job has been forced to stop', LoggerInterface::PRIORITY_ERROR);
+            }
+            $this->job->setStatus(Job::STATUS_ERROR);
+            $em->flush();
+        }
+
+        exit;
     }
 }
