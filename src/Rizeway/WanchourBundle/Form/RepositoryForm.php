@@ -12,7 +12,7 @@ class RepositoryForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
-        $builder->add('url', 'url');
+        $builder->add('url', 'text');
     }
 
     public function getName()

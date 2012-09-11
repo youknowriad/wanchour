@@ -6,4 +6,4 @@ build/
 vendor
 web/workspace
 composer.phar
-anchour.phar
+anchour.phar*
