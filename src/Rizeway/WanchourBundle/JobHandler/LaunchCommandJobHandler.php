@@ -47,7 +47,6 @@ class LaunchCommandJobHandler extends ContainerAwareJobHandler
           $anchour, 
           $this->getOption('command_name'),
           is_null($distribution) ? '' : '--config='.$config_file));
-        
 
         $this->log('Cleaning Temporary Files'); 
         exec('rm -rf '.$workspace.$dir);
@@ -64,7 +63,7 @@ class LaunchCommandJobHandler extends ContainerAwareJobHandler
         if (!is_dir('/tmp/anchour')) mkdir('/tmp/anchour');
         $file = fopen($filename, 'w+');
         foreach ($distribution->getParameters() as $parameter) {
-            fwrite($file, sprintf('%s: "%s"', $parameter->getKey(), $parameter->getValue()));
+            fwrite($file, sprintf('%s: "%s"'.PHP_EOL, $parameter->getKey(), $parameter->getValue()));
         }
         fclose($file);
 

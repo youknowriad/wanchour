@@ -5,10 +5,10 @@ namespace Rizeway\WanchourBundle\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Rizeway\WanchourBundle\Form\RepositoryForm;
 use Rizeway\WanchourBundle\Entity\Repository;
-use Rizeway\WanchourBundle\Utils\CommandsUpdater;
 use Rizeway\WanchourBundle\Utils\CommandLauncher;
 use Rizeway\WanchourBundle\Form\SelectDistributionForm;
 use Rizeway\WanchourBundle\Utils\AnchourJobCreator;
+use Rizeway\JobBundle\Entity\Job;
 
 class RepositoryController extends BaseController
 {
@@ -104,10 +104,17 @@ class RepositoryController extends BaseController
     public function updateCommandsAction($id)
     {
         $repository = $this->getRepository($id);
-        $updater = new CommandsUpdater();
-        $updater->update($repository);
+
+        $job = new Job();
+        $job->setName('Updating repository commands : '.$repository->getName());
+        $job->setType('anchour.rep-'.$repository->getId().'.update');
+        $job->setClassname('\Rizeway\WanchourBundle\JobHandler\UpdateCommandsJobHandler');
+        $job->setOptions(array(
+            'repository'   => $repository->getId()
+        ));
+        $this->getDoctrine()->getEntityManager()->persist($job);
         $this->getDoctrine()->getEntityManager()->flush();
-        $this->get('session')->setFlash('success', 'The commands has been updated !');
+        $this->get('session')->setFlash('success', 'Job added to Queue!');
         
         return new RedirectResponse($this->generateUrl('repository_list'));
     }
